@@ -31,7 +31,7 @@ const monadTestnet = {
 // 3. Konfigurasi Wagmi dan RainbowKit
 const config = getDefaultConfig({
   appName: 'ChronoGlyphs Minting',
-  projectId: 'a38ca4b32632900226d2a239c15962e7', // <-- JANGAN LUPA GANTI DENGAN PROJECT ID ANDA DARI WALLETCONNECT
+  projectId: '', // <-- JANGAN LUPA GANTI DENGAN PROJECT ID ANDA DARI WALLETCONNECT
   chains: [monadTestnet], // <-- Kita gunakan definisi manual kita di sini
   ssr: false, 
 });
