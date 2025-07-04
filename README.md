@@ -1,10 +1,10 @@
-# ⧗ ChronoGlyphs
+# ⧗ ChronoGlyphs V2
 
 <div align="center">
 
-![ChronoGlyphs Logo](https://img.shields.io/badge/ChronoGlyphs-Living%20NFTs-blueviolet?style=for-the-badge&logo=ethereum)
+![ChronoGlyphs Logo](https://img.shields.io/badge/ChronoGlyphs%20V2-Living%20NFTs%20with%20Weekend%20Glow-blueviolet?style=for-the-badge&logo=ethereum)
 
-**Living NFTs that evolve with time**
+**Living NFTs that evolve with time - Now with Weekend Glow!**
 
 [![Monad Testnet](https://img.shields.io/badge/Deployed%20on-Monad%20Testnet-blue?style=flat-square)](https://testnet.monadexplorer.com)
 [![Solidity](https://img.shields.io/badge/Solidity-^0.8.20-lightgrey?style=flat-square&logo=solidity)](https://soliditylang.org/)
@@ -17,11 +17,12 @@
 
 ## 🌟 Overview
 
-ChronoGlyphs is an innovative NFT collection that brings digital art to life through time. Each Glyph is a **living, breathing artwork** that dynamically transforms between day and night forms based on real-world time, creating a unique visual experience that changes every 12 hours.
+ChronoGlyphs V2 is an innovative NFT collection that brings digital art to life through time. Each Glyph is a **living, breathing artwork** that dynamically transforms between day and night forms based on real-world time, creating a unique visual experience that changes every 12 hours.
 
 ### ✨ What Makes ChronoGlyphs Special?
 
 - 🕐 **Time-Dynamic Art**: NFTs that change appearance based on real-world time
+- 🌟 **Weekend Glow**: Special luminous effects that activate on weekends (Saturday & Sunday)
 - 🎨 **Procedural Generation**: Each mint generates a unique Monad animal with random traits
 - ⚡ **Fully On-Chain**: Complete SVG generation with no external dependencies
 - 🌍 **Living Ecosystem**: Your NFT transforms automatically - day becomes night, night becomes day
@@ -32,9 +33,16 @@ ChronoGlyphs is an innovative NFT collection that brings digital art to life thr
 ## 🎨 Features
 
 ### 🌅 Dynamic Day/Night Cycle
-- **Day Form**: Bright, energetic designs with sun-inspired elements
-- **Night Form**: Mystical, serene artwork with moon and star motifs
+- **Day Form**: Bright sky blue background with golden sun elements
+- **Night Form**: Deep navy background with silver moon elements
 - **Automatic Transformation**: Changes every 12 hours based on UTC time
+
+### 🌟 Weekend Glow Feature (NEW!)
+ChronoGlyphs V2 introduces a special **Weekend Glow** effect:
+- **Activation**: Automatically triggers on weekends (Saturday & Sunday)
+- **Visual Effect**: Adds a magical gaussian blur glow filter to the SVG
+- **Metadata Trait**: Includes "Weekend Glow" as a special trait in NFT metadata
+- **Rarity Bonus**: Weekend-minted NFTs have this exclusive visual enhancement
 
 ### 🦁 Procedural Animal Generation
 ChronoGlyphs generates 10 unique Monad animals on mint:
@@ -50,10 +58,11 @@ ChronoGlyphs generates 10 unique Monad animals on mint:
 - 🐻 **Monad Bear** - Gentle giants of the ecosystem
 
 ### 💎 Rarity & Traits
-- **Unique Color Palettes**: Each animal has distinct primary, secondary, and accent colors
 - **Time-Based Traits**: Day/Night form variations double the visual possibilities
-- **Legendary Rarity**: All ChronoGlyphs are marked as Legendary tier
+- **Weekend Glow**: Exclusive glow effect for weekend-minted NFTs (Saturday & Sunday)
+- **Dynamic Metadata**: Traits automatically update based on minting time
 - **Blockchain Metadata**: Fully on-chain trait storage and generation
+- **Special Attributes**: "Time of Day" (Day/Night) and optional "Flair" (Weekend Glow)
 
 ---
 
@@ -138,12 +147,20 @@ forge verify-contract <CONTRACT_ADDRESS> src/ChronoGlyphs.sol:ChronoGlyphs --cha
 
 ```
 src/
-├── ChronoGlyphs.sol        # Main NFT contract
+├── ChronoGlyphs.sol        # Main NFT contract (V2 with Weekend Glow)
 ├── test/
 │   └── ChronoGlyphs.t.sol  # Comprehensive test suite
 └── script/
     └── DeployChronoGlyphs.s.sol  # Deployment script
 ```
+
+**ChronoGlyphs V2 Features:**
+- ✅ ERC721 compliant NFT contract
+- ✅ Dynamic SVG generation based on block.timestamp
+- ✅ Day/Night cycle (12-hour intervals)
+- ✅ Weekend Glow effect (Saturday & Sunday)
+- ✅ On-chain metadata with dynamic traits
+- ✅ Gaussian blur filter for weekend enhancement
 
 ### Frontend Architecture
 
@@ -172,10 +189,10 @@ frontend/
 ### Smart Contract API
 
 ```solidity
-// Mint a new ChronoGlyph
+// Mint a new ChronoGlyph (V2 with Weekend Glow)
 function mintGlyph() public
 
-// Get token metadata (includes dynamic SVG)
+// Get token metadata (includes dynamic SVG with weekend effects)
 function tokenURI(uint256 tokenId) public view returns (string memory)
 
 // Standard ERC721 functions
@@ -183,17 +200,44 @@ function balanceOf(address owner) public view returns (uint256)
 function ownerOf(uint256 tokenId) public view returns (address)
 ```
 
+### Dynamic Metadata Structure
+
+Each ChronoGlyph's metadata includes:
+```json
+{
+  "name": "ChronoGlyph #1",
+  "description": "A living glyph that changes with time.",
+  "attributes": [
+    {
+      "trait_type": "Time of Day",
+      "value": "Day" // or "Night"
+    },
+    {
+      "trait_type": "Flair", 
+      "value": "Weekend Glow" // Only present if minted on weekend
+    }
+  ],
+  "image": "data:image/svg+xml;base64,..." // Dynamic SVG
+}
+```
+
 ### Time Logic
 
-The contract determines day/night state using:
+The contract determines day/night state and weekend glow using:
 ```solidity
+// Day/Night Logic (every 12 hours)
 uint256 secondsInADay = 86400;
 uint256 secondOfTheDay = block.timestamp % secondsInADay;
 bool isDay = secondOfTheDay < (secondsInADay / 2);
+
+// Weekend Detection (Saturday & Sunday)
+uint256 dayOfWeek = ((block.timestamp / secondsInADay) + 4) % 7;
+bool isWeekend = (dayOfWeek == 0 || dayOfWeek == 6); // 0=Sunday, 6=Saturday
 ```
 
-- **Day**: 00:00 - 11:59 UTC
-- **Night**: 12:00 - 23:59 UTC
+- **Day**: 00:00 - 11:59 UTC (Golden sun on sky blue background)
+- **Night**: 12:00 - 23:59 UTC (Silver moon on navy background)
+- **Weekend Glow**: Active on Saturday & Sunday with special SVG filter effects
 
 ---
 
@@ -242,7 +286,10 @@ forge coverage
 - ✅ Minting functionality
 - ✅ Token URI generation
 - ✅ Day/night state logic
-- ✅ Metadata structure
+- ✅ Weekend detection algorithm
+- ✅ Weekend Glow effect application
+- ✅ Metadata structure with dynamic traits
+- ✅ SVG filter generation
 - ✅ Access controls
 - ✅ Edge cases
 
@@ -275,18 +322,26 @@ forge coverage
 
 ### Day Form
 ```
-🌅 Bright blue sky background
-☀️ Golden sun elements
-✨ Warm, energetic color palette
-🌟 Radiant light effects
+🌅 Sky blue background (#87CEEB)
+☀️ Golden sun circle (#FFD700)
+✨ Clean, bright aesthetic
+🌟 Optional weekend glow filter effect
 ```
 
 ### Night Form
 ```
-🌙 Deep blue/purple night sky
-⭐ Silver moon and stars
-🌌 Cool, mystical color palette
-✨ Ethereal glow effects
+🌙 Deep navy background (#000080)
+⭐ Silver moon circle (#F0F0F0)
+🌌 Cool, mystical aesthetic
+✨ Optional weekend glow filter effect
+```
+
+### Weekend Glow Effect
+```
+✨ Gaussian blur filter (stdDeviation="3.5")
+🌟 Applied to sun/moon elements on weekends
+💫 Creates magical luminous aura
+🎨 Visible on both day and night forms
 ```
 
 ---
@@ -295,9 +350,10 @@ forge coverage
 
 ### Phase 1: Core Launch ✅
 - [x] Smart contract development
-- [x] Frontend application
+- [x] ChronoGlyphs V2 with Weekend Glow feature
+- [x] Frontend application with Monad animal generation
 - [x] Monad Testnet deployment
-- [x] Basic minting functionality
+- [x] Modern responsive UI/UX
 
 ### Phase 2: Enhanced Features 🔄
 - [ ] Marketplace integration
