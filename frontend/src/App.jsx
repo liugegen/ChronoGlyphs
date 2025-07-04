@@ -4,7 +4,7 @@ import { useAccount, useWriteContract, useReadContract } from 'wagmi';
 import { useState, useEffect } from 'react';
 
 // 1. Definisikan Alamat Kontrak dan ABI
-const contractAddress = '0xAE9FbF66469624bc6D0834D3BC547f03B44FB21d'; // <-- Alamat kontrak Anda yang sudah dideploy
+const contractAddress = '0x5446a93e3C5a342D199a4f4410C01a2b250b2AE8';
 const contractABI = [
   {
     "inputs": [],
