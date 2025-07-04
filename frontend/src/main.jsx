@@ -3,16 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
-// 1. Import semua yang kita butuhkan
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-// Kita tidak mengimpor 'monad' lagi, karena tidak ada
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-// 2. Kita definisikan jaringan Monad Testnet secara manual
+// Mendefinisikan jaringan Monad Testnet secara manual
 const monadTestnet = {
-  id: 10143, // Chain ID yang Anda berikan
+  id: 10143,
   name: 'Monad Testnet',
   nativeCurrency: {
     name: 'MON',
@@ -20,25 +18,25 @@ const monadTestnet = {
     decimals: 18,
   },
   rpcUrls: {
-    default: { http: ['https://testnet-rpc.monad.xyz'] }, // RPC URL yang Anda berikan
+    default: { http: ['https://testnet-rpc.monad.xyz'] },
   },
   blockExplorers: {
-    default: { name: 'MonadExplorer', url: 'https://testnet.monadexplorer.com' }, // Explorer yang Anda berikan
+    default: { name: 'MonadExplorer', url: 'https://testnet.monadexplorer.com' },
   },
-  testnet: true, // Menandakan ini adalah jaringan tes
+  testnet: true,
 };
 
-// 3. Konfigurasi Wagmi dan RainbowKit
+// Konfigurasi Wagmi dan RainbowKit
 const config = getDefaultConfig({
   appName: 'ChronoGlyphs Minting',
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  chains: [monadTestnet], // <-- Kita gunakan definisi manual kita di sini
+  // Membaca Project ID dari Environment Variable, BUKAN dari teks langsung
+  projectId: import.meta.env.VITE_PROJECT_ID, 
+  chains: [monadTestnet],
   ssr: false, 
 });
 
 const queryClient = new QueryClient();
 
-// 4. Bungkus komponen <App /> kita dengan semua Provider
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <WagmiProvider config={config}>
