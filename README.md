@@ -412,11 +412,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Aldi Ranoto**: [@josari213](https://x.com/josari213)
 - **GitHub**: [liugegen](https://github.com/liugegen)
 
-### Community
-- **Discord**: [Join our community](https://discord.gg/chronoglyphs)
-- **Twitter**: [@ChronoGlyphs](https://twitter.com/chronoglyphs)
-- **Telegram**: [ChronoGlyphs Channel](https://t.me/chronoglyphs)
-
 ---
 
 <div align="center">
